@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frecuencímetro </title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+body {
+    margin: 0;
+    background: #1a1a1a;
+    color: #00ff00;
+    font-family: 'Share Tech Mono', monospace;
+}
+
+header {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: #00ff00;
+    text-shadow: 0 0 8px #00ff00;
+}
+
+h1 {
+    font-size: 2rem;
+    letter-spacing: 2px;
+}
+
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+h2 {
+    border-left: 3px solid #00ff00;
+    padding-left: 8px;
+    margin-top: 2rem;
+}
+
+p {
+    line-height: 1.6;
+    color: #7fff7f;
+    margin-bottom: 1rem;
+}
+
+  /* Pantalla tipo monitor Apple II */
+.monitor {
+    background: #000;
+    border: 3px solid #00ff00;
+    border-radius: 4px;
+    padding: 1rem;
+    box-shadow: 0 0 20px rgba(0,255,0,0.2);
+    margin: 2rem auto;
+    max-width: 600px;
+}
+
+.display {
+    font-size: 2rem;
+    text-align: center;
+    animation: parpadeo 1s infinite alternate;
+}
+
+@keyframes parpadeo {
+    from { opacity: 1; }
+    to { opacity: 0.7; }
+}
+
+.scanline {
+    position: relative;
+    overflow: hidden;
+}
+
+.scanline::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 255, 0, 0.05) 0px,
+        rgba(0, 255, 0, 0.05) 1px,
+        transparent 2px,
+        transparent 4px
+    );
+    pointer-events: none;
+}
+
+img {
+    display: block;
+    margin: 2rem auto;
+    max-width: 100%;
+    border: 2px solid #00ff00;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0,255,0,0.3);
+}
+
+footer {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #00ff00;
+    margin-top: 3rem;
+    opacity: 0.8;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Frecuencímetro 🖥️</h1>
+    <p>Medición digital de señales con estética retro-computacional</p>
+</header>
+
+<main>
+    <h2>Detector de cruce por cero</h2>
+    <p>Con el amplificador operacional, en modo comparador con su referencia a tierra es decir, la entrada inversora a tierra asi se detecta si la señal alterna de la entrada es mayor o menor que cero, en caso de ser mayor lo toma como 1 y si es menor la salida sera cero ya que la alimentacion no es dual simetrica.</p>
+    <img src="img/F1.png" alt="Detector de cruce por cero">
+
+    <h2>temporizador</h2>
+    <p>Ya que la frecuencia es cantidad de ciclos por segundo, el circuito monostable es encargado de activar el contador durante un segundo se activa al pulsar el boton y devuelve la frecuencia al segundo despues de activarlo.</p>
+    <img src="img/F2.png" alt="Contador binario">
+
+    <h2>Contador</h2>
+    <p>Es la parte mas importante ya que cuenta los ciclos por segundo y asi obtener la frecuencia, el conteo radica en el bucle que se hace en el primer contador el cual cuenta de 0 a 9, al llegar a 9 aumenta 1 en el acarro del siguiente contador, que es de la decena de la misma manera se pasa a la centena y a la unidad de mil, es decir es un frecuencimetro de 1 a 9999Hz.</p>
+
+    <p>El 4017 es el contador de decada, el 74LS540 sirve para negar las salidas del contador, se niegan ya que la entrada del 74LS147 esta negada, el cual es un contador de decada a codificador binario, como su salida tambien esta negada se usa de nuevo el  74LS540 con el fin de mandarlo al display BCD.</p>
+
+    <img src="img/F3.png" alt="Contador binario">
+
+
+<h2>Esquema general</h2>
+<img src="img/F4.png" alt="Esquema general del frecuencímetro">
+</main>
+
+<footer>
+    © 2025 Jordy Ventura 
+</footer>
+
+</body>
+</html>

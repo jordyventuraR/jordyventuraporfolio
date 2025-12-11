@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elevador del Templo</title>
+<style>
+  body {
+    margin: 0;
+    background: radial-gradient(circle at center, #1b1f3a, #0c0f1c 80%);
+    font-family: 'Poppins', sans-serif;
+    color: #f5eec2;
+    overflow-x: hidden;
+    height: 100vh;
+  }
+
+  header {
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+    color: #ffd700;
+    text-shadow: 0 0 10px #ffd700;
+  }
+
+  .elevador-container {
+    position: relative;
+    width: 180px;
+    height: 260px;
+    margin: 3rem auto;
+    border: 3px solid #ffd700;
+    border-radius: 10px;
+    background: linear-gradient(180deg, #2a2d45, #16182b);
+    box-shadow: 0 0 30px rgba(255,215,0,0.2);
+    overflow: hidden;
+  }
+
+  .cabina {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    left: 30px;
+    bottom: 0;
+    background: radial-gradient(circle at center, #00ffa3, #004f3a);
+    border: 2px solid #ffd700;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #00ffa3;
+    animation: subirBajar 6s ease-in-out infinite;
+  }
+
+  @keyframes subirBajar {
+    0%, 100% { bottom: 0; }
+    50% { bottom: 120px; }
+  }
+
+
+  footer {
+    text-align: center;
+    margin-top: 2rem;
+    opacity: 0.8;
+    font-size: 0.9rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Elevador</h1>
+    <p>Un sistema de driver para elevador el cual indica cuantos pisos se quiere subir o bajar, y si se quiere subir o bajar, el proposito es poder tomar esos datos y convertirlo a un sistema de control para algun actuador como un motor a pasos por ejemplo.</p>
+    <h2>Codificador</h2>
+    <p>El CI 74LS147 es el encargado de codificar de "decimal" a binario, el numero  decimal se toma del sistema de botones que tiene por dentro el elevador el  cual sirve para ver a que nivel quiere ir, tambien se usa para ver desde que nivel se esta llamando el elevador, el sistema de botones esta usando el modo pull up ya que el CI es de logica negativa, el CI 74LS240 es usado para negar la salida del codificador. </p>
+    <img src="img/E1.png" alt="Elevador 1" class="ae86">
+
+    <h2>Comparador</h2>
+    <p>El integrado 74LS85 sirve para comparar si es mayor el nivel al que se quiere ir o menor esto es importante ya que determina si se quiere subir o bajar.</p>
+    <img src="img/E2.png" alt="Elevador 2" class="ae86">
+
+    <h2>Restador</h2>
+    <p>Para realizar la resta se hace el complemento a 2  del numero que quiere restar eso sirve para ver cuantos pisos se quiere subir o bajar, por eso es que se quiere ver de que forma hacer la resta, el cual es la tarea encargada por el comparador.</p>
+    <img src="img/E3.png" alt="Elevador 2" class="ae86">
+
+    <P>Esquema completo</P>
+    <img src="img/E4.png" alt="Elevador 2" class="ae86">
+</header>
+<footer>© 2025 Jordy Ventura</footer>
+</body>
+</html>

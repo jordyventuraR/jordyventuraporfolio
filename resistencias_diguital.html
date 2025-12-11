@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resistencia Digital FW-190</title>
+<style>
+    body {
+        margin: 0;
+        background: radial-gradient(circle at center, #1a1d22, #0d0e10);
+        font-family: 'Orbitron', sans-serif;
+        color: #00ff91;
+        overflow-x: hidden;
+    }
+
+    header {
+        text-align: center;
+        padding: 2rem 1rem;
+        color: #c0c0c0;
+        text-shadow: 0 0 10px #00ff91;
+    }
+
+    h1 {
+        font-size: 2rem;
+        letter-spacing: 2px;
+    }
+
+    /* 🔹 Nuevo contenedor general */
+    main {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 1.5rem; /* <-- aquí entra el margen izquierdo y derecho */
+    }
+
+    h2 {
+        color: #c0c0c0;
+        border-left: 4px solid #00ff91;
+        padding-left: 8px;
+        margin-top: 2rem;
+    }
+
+    p {
+        line-height: 1.6;
+        color: #b6f2d0;
+        margin-bottom: 1.5rem;
+    }
+
+    img {
+        display: block;
+        margin: 1rem auto 2rem auto;
+        max-width: 100%;
+        border: 2px solid #00ff91;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,255,145,0.2);
+    }
+
+    footer {
+        text-align: center;
+        color: #777;
+        font-size: 0.9rem;
+        margin: 3rem 0 1rem 0;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Resistencia Digital ⚙️</h1>
+</header>
+
+<main>
+    <h2>Multiplexores</h2>
+        <p>El circuito integrado 74LS138 es un multiplexor, con la entrada en alto, con el fin de atraves de una codificación a través de los botones en pull down, poner en alto un solo canal. Este circuito se implementa dos veces, por lo que se tienen 6 bits para direccionar el valor de la resistencia.</p>
+    <img src="img/RD1.png" alt="Circuito de multiplexores">
+
+    <h2>Sistema de transistores</h2>
+        <p>Los transistores en saturación sirven como conductores con el fin de que la corriente sea limitada por la resistencia previamente establecida. Es decir, la resistencia se encuentra entre el común de los colectores y el común de los emisores.</p>
+    <img src="img/RD2.png" alt="Sistema de transistores">
+
+    <p><strong>Esquema completo</strong></p>
+    <img src="img/RD3.png" alt="Esquema completo de la resistencia digital">
+</main>
+
+<footer>
+    © 2025 Jordy Ventura
+</footer>
+
+</body>
+</html>

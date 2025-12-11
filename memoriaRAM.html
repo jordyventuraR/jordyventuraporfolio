@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memoria RAM — Ingeniería Retro</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+body {
+    margin: 0;
+    background: linear-gradient(180deg, #0b1d3a, #0a1730);
+    color: #00ffff;
+    font-family: 'Share Tech Mono', monospace;
+    overflow-x: hidden;
+}
+
+header {
+    text-align: center;
+    padding: 2rem 1rem;
+    border-bottom: 1px solid rgba(0,255,255,0.3);
+}
+
+h1 {
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+h2 {
+    border-left: 3px solid #00ffff;
+    padding-left: 8px;
+    margin-top: 2rem;
+    color: #a8f6ff;
+}
+
+p {
+    line-height: 1.6;
+    color: #d8faff;
+    margin-bottom: 1.5rem;
+}
+
+  /* Cuadro técnico tipo plano */
+.blueprint {
+    position: relative;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.05) 0px,
+        rgba(255,255,255,0.05) 1px,
+        transparent 2px,
+        transparent 20px
+    );
+    border: 2px solid #00ffff;
+    border-radius: 6px;
+    box-shadow: 0 0 20px rgba(0,255,255,0.2);
+    padding: 1.5rem;
+    margin: 2rem 0;
+}
+
+.ram-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 6px;
+    margin-top: 1rem;
+}
+
+.cell {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #00ffff;
+    border-radius: 3px;
+    box-shadow: inset 0 0 4px #00ffff;
+    background: rgba(0,255,255,0.1);
+    transition: background 0.4s;
+}
+
+.cell.active {
+    background: #00ffff;
+}
+
+footer {
+    text-align: center;
+    color: #a0f0ff;
+    font-size: 0.9rem;
+    margin-top: 3rem;
+    opacity: 0.8;
+    border-top: 1px solid rgba(0,255,255,0.3);
+    padding-top: 1rem;
+}
+
+img {
+    display: block;
+    margin: 1rem auto;
+    max-width: 100%;
+    border: 2px solid #00ffff;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0,255,255,0.3);
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Memoria RAM 💾</h1>
+    <p>Matriz de registros y comunicacion SPI</p>
+</header>
+
+<main>
+    <h2>Flip - flop JK</h2>
+    <p>La unidad minima de almacenamiento es un flip flop JK el cual puede almacenar el estado de un bit, en mi diseño no use la accion de borrar la memoria, por eso es que la entrada K del flip flop esta al aire, la salida es Q, y la rescritura de un flip flop es atravez del clock.</p>
+    <img src="img/MR1.png" alt="Flip flop de la memoria RAM">
+
+    <h2>Memoria de 1 byte</h2>
+    <p>La union de flip - flop forma un registro de entrada y salida paralelo (PIPO), el reloj se comparte por lo que es sincrono, el reloj se deberia de compartir con el CPU.</p>
+    <img src="img/MR2.png" alt="Registro de 1 byte">
+
+    <h2>Matriz de flip flops</h2>
+    <p>Asi como se unieron los flip flop para formar un registro, la union de registros forman la memoria, es decir un bit seria una celda dentro de una matriz de 64 bits, por lo que en teoria se puede guardar un numero dentro de 0 a 2^64 es decir de 0 a 18,446,744,073,709,551,615, claro que hay que hacer un driver para la CPU para almacenar numeros en dicha ram, ya que en si la manipulacion de la memoria es bit por bit.</p>
+    <img src="img/MR3.png" alt="Matriz de registros">
+
+    <h2>Multiplexores</h2>
+    <p>Asi de importante como la matriz de almacenamiento es donde se encuentra la informacion que almacenamos dentro de la memoria, es decir la direccion, en si la direccion es por byte, la idea primordial es almacenarlo atravez bytes, su direccion son atravez de las direcciones de los multiplexores, es decir solo se puede almacenar o leer 1 byte a la vez o 1 byte por direccion.</p>
+    <img src="img/MR4.png" alt="Esquema gene">
+
+    <h2>Demultiplexores</h2>
+    <p>Se realiza un proceso similar al de la escritura para la lectura, teniendo las direccion del byte que se quiere leer se usa una fila de demultiplexores donde sus entradas van a 8 unidades de memoria.</p>
+    <img src="img/MR5.png" alt="Esquema general de la memoria RAM">
+
+    <h2>Demultiplexor</h2>
+    <p>El demultiplexor toma todas las entradas de una columna y mediante el direccionamiento se selecciona que entrada se copia en la salida.</p>
+    <img src="img/MR6.png" alt="Esquema general de la memoria RAM">
+
+    <h2>Escritura serie</h2>
+    <p>El proposito de la memoria es comunicarla atravez de comunicacion SPI es decir se tiene un pin ss para la activacion esclavo maestro, el pin de clock ya que es una memoria sincrona, un MISO y un MOSI es decir para enviar datos desde el maestro al esclavo (la memoria) o para recibir lo almacenado desde la memoria al CPU.</p>
+    
+    <p>Integración de registros, multiplexores y control de habilitación para formar una matriz de memoria completamente direccionable.</p>
+
+    <p>Para la escritura de la memoria se usa una fila de multiplexores es decir una entrada en paralelo sin embargo los datos son enviados en serie por la CPU asi que 74HC595 es el CI encargado de pasar de serie a paralelo.</p>
+    <img src="img/MR8.png" alt="Esquema general de la memoria RAM">
+
+
+    <h2>Logica combinacional</h2>
+    <p>Es necesaria una etapa de logica combinacional ya que esta encargada de escribir los datos a la memoria hasta que se enviaron todos los datos, para eso al escribir el mensaje siempre se inicia colocando en alto, tambien es necesario que al momento de iniciar un mensaje se inicie en limpio, antes de escribir los datos en la memoria, tambien es necesario recibir un bit para identificar si se desea escritura o lectura.</p>
+    <img src="img/MR10.png" alt="Esquema general de la memoria RAM">
+
+    <h2>Funcionamiento general</h2>
+    <p>El CPU envia 1 bit de activacion de la comunicacion ya sea escritura o lectura SS, atraves de la comunicacion serie se envia el primer bit de protocolo, el siguiente bit es de escritura o lectura, los siguientes 3 bits es la direccion, o puntero de la memoria y los ultimos 8 bits son de escritura en caso de ser lectura es don't care, </p>
+    <img src="img/MR11.png" alt="Esquema general de la memoria RAM">
+    
+</main>
+
+<footer>
+    © 2025 Jordy Ventura 
+</footer>
+</body>
+</html>

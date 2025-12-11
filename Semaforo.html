@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semáforo Fujiwara</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: radial-gradient(circle at top, #1a1a1a, #0d0d0d);
+    color: #fff;
+    overflow-x: hidden;
+  }
+
+  header {
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    color: #fff;
+  }
+
+  .semaforo {
+    width: 100px;
+    margin: 3rem auto;
+    background: linear-gradient(180deg, #333 0%, #222 100%);
+    border-radius: 15px;
+    padding: 1rem;
+    box-shadow: 0 0 25px rgba(255,255,255,0.1);
+    position: relative;
+  }
+
+  .luz {
+    width: 60px;
+    height: 60px;
+    margin: 15px auto;
+    border-radius: 50%;
+    background: #111;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 3rem;
+    opacity: 0.8;
+  }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Semáforo</h1>
+
+    <h2>Generador astables</h2>
+    <p>El 555 en modo astable genera una señal cuadrada, como se establecio cierto tiempo para cada color, se debe de calcular la frecuencia con el fin de que 9 pulsos dure el ciclo del semaforo.</p>
+    <img src="img/S1.png" alt="semaforo 1" class="ae86">
+
+    <h2>Contador binario</h2>
+    <p>El CI 74LS93 recibe los pulsos del 555 y genera numeros binario con el flanco ascendente</p>
+    <img src="img/S2.png" alt="Semaforo 2" class="ae86">
+
+    <h2>Comparador</h2>
+    <p>Los 3 CI 74HC85 recibe los numeros binarios del contador binario, y a cada uno se le dio un numero binario, con el fin de que cada color dure cierta cantidad de tiempo por ejemplo si el color rojo dura 3s y cada ciclo dura un 1s el numero a comparar seria 3 </p>
+    <img src="img/S3.png" alt="semaforo 3" class="ae86">
+
+    <h2>Luces con logica combinacional</h2>
+    <p>Solo se debe de prender un color a la vez, con logica combinacionales se establecio las condicionales</p>
+    <img src="img/S4.png" alt="semaforo 4" class="ae86">
+
+
+</header>
+
+<footer>
+  <p>© 2025 Jordy Ventura </p>
+</footer>
+
+</body>
+</html>
